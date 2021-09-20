@@ -16,28 +16,15 @@
 		.fon {
 			//background-color: #555;
 		}
+		/*.item {
+			filter: drop-shadow(3px 3px 0px #fff) drop-shadow(-3px -3px 0px #363636);
+		}*/
 		.item {
 			filter: drop-shadow(3px 0px 0px #fff) drop-shadow(0px 3px 0px #fff) drop-shadow(-3px 0px 0px #363636) drop-shadow(0px -3px 0px #363636);
 		}
 		body {
-			background: #C6C6C600;
+			background: #C6C6C6;
 			font-family: 'Montserrat', sans-serif;
-		}
-		::-webkit-scrollbar{
-		width: 4px;
-		height: 4px;
-		}
-		::-webkit-scrollbar-thumb{
-		background: #A8A6A8;
-		border-radius: 0px;
-		}
-		::-webkit-scrollbar-thumb:hover{
-		background: #878587;
-		}
-		::-webkit-scrollbar-track{
-		background: #FFFFFF;
-		border-radius: 0px;
-		box-shadow: inset 0px 0px 0px 0px #F0F0F0;
 		}
 		table {
 			border-spacing: 4px;
@@ -47,13 +34,13 @@
 			width: 50px;
 			padding-top: 3px;
 		}
-		/*html { overflow:  hidden; }*/
+		html { overflow:  hidden; }
 	</style>
 
 </head>
 <!-- Не пали мой говнокод! -->
-	<body align="center" style="margin: 0px">
-		<div><table align="center" class="fon" style="
+	<body style="margin: 0px">
+		<div><table class="fon" style="
     padding-left: 10px;
     padding-top: 10px;
 ">
@@ -93,30 +80,30 @@
 		    <td><div onclick="but(24)" class="item item25" style="width: 64px;height: 64px;"><img src="img/air.png" alt=""></div></td>
 		  </tr>
 		</table></div>
+		<br><br>
 		<div class="del" style="margin: 10px">
-		<a onclick="game();url_lkn()"><img src="btn5.png" alt=""></a>
+		<!-- <button onclick="game();">Генерировать</button>
 		<form onsubmit="return false" oninput="level.value = flevel.valueAsNumber;tested(flevel.valueAsNumber)">
-		<input name="flevel" id="flying" type="range" min="1" max="25" onclick="game();url_lkn()">
+		<input name="flevel" id="flying" type="range" min="1" max="25">
 		<output for="flying" name="level">13</output>/25
 		</form><br>
 		Сложность:<br>
 		<form onsubmit="return false" onclick="difficulty(flevel_0.valueAsNumber)" oninput="level_0.value = flevel_0.valueAsNumber">
-		<input name="flevel_0" id="flying" type="range" min="0" max="4" >
+		<input name="flevel_0" id="flying" type="range" min="0" max="4">
 		<output for="flying" name="level_0">2</output>/3
 		</form>
 		0 - Мирный (Изич)<br>
 		1 - Легкий (Новенький)<br>
 		2 - Нормальный (Обычный)<br>
 		3 - Сложный (Профи)<br>
-		4 - Нереальный (Ты что, есус?)<br><br>
-		<!-- <input type=checkbox name=a value=4> Включить видимость пустых ячеек. (потребуется перегенерация)<br>
+		4 - Нереальный (Ты что, есус?)<br><br> -->
+		<input type=checkbox name=a value=4 onclick="setTimeout(load, 100);"> Включить видимость пустых ячеек. (Также сбратывает все выделение!)<br>
 		Стиль выбора предмета: <br><div class="done_style">
 		<input type=checkbox name=a value=0 checked> <img style="width: 16px;" src="img/done_style/0.png" alt="">
 		<input type=checkbox name=a value=1> <img style="width: 16px;" src="img/done_style/1.png" alt="">
 		<input type=checkbox name=a value=2> <img style="width: 16px;" src="img/done_style/2.png" alt="">
 		<input type=checkbox name=a value=3> <img style="width: 16px;" src="img/done_style/3.png" alt="">
-		</div> -->
-		<div class="url"></div>
+		</div>
 		</div>
 
 		<script>
@@ -124,9 +111,49 @@
 			var difficulty_num = 2
 			var items = [];
 			var items_1 = [];
-			var difficulty_file = ["0.json","1.json","2.json","3.json","4.json"];
+			/////////////////////
+				var done = [true,false,false,false];
+	document.addEventListener('change', function () {
+  var chk = event.target
+  
+  if (chk.tagName === 'INPUT' && chk.type === 'checkbox') {
+  	done[chk.value]=chk.checked
+    console.log(chk.name, chk.value, chk.checked)
+  }
+})
+	///////////////////////
+			var params = window
+			  .location
+			  .search
+			  .replace('?','')
+			  .split('&')
+			  .reduce(
+			      function(p,e){
+			          var a = e.split('=');
+			          p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+			          return p;
+			      },
+			      {}
+			  );
+			  function load(){
+			  	console.log(done[4])
+			  var i =0
+			while (i < 25) { // выводит 0, затем 1, затем 2
+			  var tesst = document.getElementsByClassName("item")[i]
+			  if(params['b'+i]==undefined){
+			  	if(done[4]){
+			  	tesst.innerHTML = `<img src="img/air.png" alt="">`}else{
+			  		tesst.innerHTML = ``
+			  	}
+			  }else{
+				tesst.innerHTML = `<img title="`+ params['b'+i] +`" src="img/`+ params['b'+i] +`.png" alt="">`}
+			  i++;
+			}}
+			load();
+			/////////////////////
+						var difficulty_file = ["0.json","1.json","2.json","3.json","4.json"];
 			/*var	blocks = [];*/
-			var blocks_url="https://dearfox.github.io/minecraft_bingo/bingo_id.html?"
+			var blocks_url="https://dearfox.github.io/minecraft_bingo/bingo.html?"
 			difficulty(2);
 		function getRandomInt(max) {
 	  return Math.floor(Math.random() * max);
@@ -154,13 +181,10 @@
 
 		}
 		function game (){
-			blocks_url = "https://dearfox.github.io/minecraft_bingo/bingo_id.html?"
 			let i1 = 0;
 			while (i1 < 25) { // выводит 0, затем 1, затем 2
 			  var tesst = document.getElementsByClassName("item")[i1]
-			  if(done[4]){tesst.innerHTML = `<img src="img/air.png" alt="">`}else{
-			  	tesst.innerHTML = ``
-			  }
+			tesst.innerHTML = `<img src="img/air.png" alt="">`
 			  i1++;
 			 }
 			let i = 0;
@@ -172,27 +196,15 @@
 			  i++;
 			}
 		}
-		function url_lkn(){
-			var url_bloc = document.getElementsByClassName("url")[0]
-			url_bloc.innerHTML = `<a href="`+blocks_url+`" target="_blank" onclick="window.open(this.href,this.target,'width= 380,height=564,scrollbars=1');return false;"><img src="btn2.png" alt=""></a><br>
-			Нажмите что-бы скопировать ссылку на созданное бинго: <textarea id="clip" onclick="var ta = document.getElementById('clip');ta.focus();ta.select();console.log(document.execCommand('copy'));">`+blocks_url+`</textarea>`
-		}
-	var done = [true,false,false,false];
-	document.addEventListener('change', function () {
-  var chk = event.target
-  
-  if (chk.tagName === 'INPUT' && chk.type === 'checkbox') {
-  	done[chk.value]=chk.checked
-    console.log(chk.name, chk.value, chk.checked)
-  }
-})
+
 		function but(a){
-			/*var done_style_res=''
+			var done_style_res=''
 			if(done[0]){done_style_res=`<img style="position: absolute;left: 0px;top: 0px;z-index: 10;" src="img/done_style/0.png" alt="">`}
 			if(done[1]){done_style_res+=`<img style="position: absolute;left: 0px;top: 0px;z-index: 10;" src="img/done_style/1.png" alt="">`}
 			if(done[2]){done_style_res+=`<img style="position: absolute;left: 0px;top: 0px;z-index: 10;" src="img/done_style/2.png" alt="">`}
 			if(done[3]){done_style_res+=`<img style="position: absolute;left: 0px;top: 0px;z-index: 10;" src="img/done_style/3.png" alt="">`}
-			document.getElementsByClassName("item")[a].innerHTML +=done_style_res*/
+			/*document.getElementsByClassName("item")[a].innerHTML =`<div style="filter: sepia(1);">`+ document.getElementsByClassName("item")[a].innerHTML +`</div>`*/
+			document.getElementsByClassName("item")[a].innerHTML +=done_style_res
 		}
 	</script>
 	</body>
