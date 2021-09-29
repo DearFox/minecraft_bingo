@@ -176,7 +176,7 @@
 			var url_bloc = document.getElementsByClassName("url")[0]
 			url_bloc.innerHTML = `Нажмите что-бы скопировать ссылку для ОБС или друга: <textarea id="clip" onclick="var ta = document.getElementById('clip');ta.focus();ta.select();console.log(document.execCommand('copy'));" style="width: 350px;">`+blocks_url+`</textarea><br>
 			Устаревший вариант:<br>
-			<a href="`+blocks_url+`" target="_blank" onclick="window.open(this.href,this.target,'width= 380,height=564,scrollbars=1');return false;"><img src="btn2.png" alt=""></a>`
+			<a href="`+blocks_url+`" target="_blank" onclick="window.open(this.href,this.target,'width= 380,height=564,scrollbars=1');return false;"><img style="width: 256px;" src="btn2.png" alt=""></a>`
 		}
 	var done = [true,false,false,false];
 	document.addEventListener('change', function () {
