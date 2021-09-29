@@ -35,14 +35,30 @@
 			padding-top: 3px;
 		}
 		html { overflow:  hidden; }
+
+		.id_block{
+	    height: 25px;
+	    width: 380px;
+	    padding-top: 5px;
+	    font-size: 20px;
+	    /*-webkit-text-stroke: 0.5px white;*/
+		}
+		.id_block span {
+			display: inline;
+			background-color: #000000dd;
+			box-shadow: -3px 0px 0 #2E0869ee, 3px 0px 0 #2E0869ee,0px -3px 0 #2E0869ee, 0px 3px 0 #2E0869ee;
+			padding: 3px 3px;
+			color: #FFFFFF;
+			font-size: 20px;
+		}
 	</style>
 
 </head>
 <!-- Не пали мой говнокод! -->
 	<body style="margin: 0px">
+		<h1 class="id_block" align="center"></h1>
 		<div><table class="fon" style="
     padding-left: 10px;
-    padding-top: 10px;
 ">
 		  <tr>
 		    <td><div onclick="but(0)" class="item item1" style="width: 64px;height: 64px;"><img src="img/air.png" alt=""></div></td>
@@ -146,7 +162,7 @@
 			  		tesst.innerHTML = ``
 			  	}
 			  }else{
-				tesst.innerHTML = `<img title="`+ params['b'+i] +`" src="img/`+ params['b'+i] +`.png" alt="">`}
+				tesst.innerHTML = `<img onmouseout="document.getElementsByClassName('id_block')[0].innerHTML=''" onmouseover="document.getElementsByClassName('id_block')[0].innerHTML='<span>'+document.getElementsByClassName('img`+i+`')[0].title+'</span>'" class="img`+i+`" title=`+ params['b'+i] +` src="img/`+ params['b'+i] +`.png" alt="">`}
 			  i++;
 			}}
 			load();
@@ -191,7 +207,7 @@
 			while (i < number) { // выводит 0, затем 1, затем 2
 			  var tesst = document.getElementsByClassName("item")[i]
 			  let gen = items[getRandomInt(items.length)].item
-			tesst.innerHTML = `<img title="`+ gen +`" src="img/`+ gen +`.png" alt="">`
+			tesst.innerHTML = `<img class="img" title="`+ gen +`" src="img/`+ gen +`.png" alt="">`
 			blocks_url+="b"+i+"="+gen+"&"
 			  i++;
 			}
